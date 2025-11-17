@@ -1,5 +1,5 @@
 #include <cmath>
-
+#include <iostream>
 #include "newton_methods.h"
 
 // Derivada por aproximação numérica
@@ -35,6 +35,12 @@ NewtonResult newton_numeric(
 
         double xnext = x - fx / dfx;
         double err = std::fabs(xnext - x);
+
+        std::cout << "root = " << x << '\n'
+              << "f(root) = " << func.f(x) << '\n'
+              << "error = " << err << '\n'
+              << "iterations = " << k << '\n'
+              << "\n";
 
         prev = x;
         x = xnext;

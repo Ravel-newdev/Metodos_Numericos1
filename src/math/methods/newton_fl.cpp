@@ -1,5 +1,5 @@
 #include <cmath>
-
+#include <iostream>
 #include "newton_methods.h"
 
 NewtonResult newton_fl(
@@ -25,6 +25,11 @@ NewtonResult newton_fl(
 
         // Atualiza a aproximação
         double d_next = d - fx / FL;
+        std::cout << "root = " <<  d_next << '\n'
+              << "f(root) = " <<  func.f(d_next) << '\n'
+              << "error = " <<  std::fabs(d_next - d) << '\n'
+              << "iterations = " <<  iter<< '\n'
+              << "\n";
 
         // Critério de parada
         if (std::fabs(d_next - d) < eps || std::fabs(fx) < eps) {
