@@ -10,7 +10,6 @@ NewtonResult newton_natural(
     double x = d0, prev = x;
     R.converged = false;
 
-    std::cout << "Analisando passos \n";
     for (int k = 1; k <= maxIter; ++k) {
         double fx = func.f(x);
         double dfx = func.df(x);
@@ -29,11 +28,11 @@ NewtonResult newton_natural(
         // erro absoluto entre iterações |Xk + 1 - Xk|
         double err = std::fabs(xnext - x);
         
-        std::cout << "root = " << x << '\n'
-              << "f(root) = " << fx << '\n'
-              << "error = " << err << '\n'
-              << "iterations = " << k << '\n'
-              << "\n";
+        // std::cout << "root = " << x << "||"
+        //       << "f(root) = " << fx << "||"
+        //       << "error = " << err << "||"
+        //       << "iterations = " << k << "||"
+        //       << "\n";
 
         prev = x;
         x = xnext;

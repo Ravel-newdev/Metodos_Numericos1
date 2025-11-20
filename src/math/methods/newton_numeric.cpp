@@ -36,11 +36,11 @@ NewtonResult newton_numeric(
         double xnext = x - fx / dfx;
         double err = std::fabs(xnext - x);
 
-        std::cout << "root = " << x << '\n'
-              << "f(root) = " << func.f(x) << '\n'
-              << "error = " << err << '\n'
-              << "iterations = " << k << '\n'
-              << "\n";
+        // std::cout << "root = " << x << '||'
+        //       << "f(root) = " << func.f(x) << '||'
+        //       << "error = " << err << '||'
+        //       << "iterations = " << k << '||'
+        //       << "\n";
 
         prev = x;
         x = xnext;

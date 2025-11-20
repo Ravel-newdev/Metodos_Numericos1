@@ -25,11 +25,11 @@ NewtonResult newton_fl(
 
         // Atualiza a aproximação
         double d_next = d - fx / FL;
-        std::cout << "root = " <<  d_next << '\n'
-              << "f(root) = " <<  func.f(d_next) << '\n'
-              << "error = " <<  std::fabs(d_next - d) << '\n'
-              << "iterations = " <<  iter<< '\n'
-              << "\n";
+        // std::cout << "root = " <<  d_next << "||"
+        //       << "f(root) = " <<  func.f(d_next) << "||"
+        //       << "error = " <<  std::fabs(d_next - d) << "||"
+        //       << "iterations = " <<  iter<< "||"
+        //       << "\n";
 
         // Critério de parada
         if (std::fabs(d_next - d) < eps || std::fabs(fx) < eps) {
