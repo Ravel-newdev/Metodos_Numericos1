@@ -1,7 +1,9 @@
 // NaturalNewton.cpp
 #include <cmath>
 #include <iostream>
+#include <iomanip>
 #include "newton_methods.h"
+using namespace std;
 
 NewtonResult newton_natural(
     const Function& func, double d0, double eps, int maxIter
@@ -10,12 +12,15 @@ NewtonResult newton_natural(
     double x = d0, prev = x;
     R.converged = false;
 
+    std::cout << "\n\n==============================\n";
+    std::cout << " NATURAL NEWTON METHOD";
+    std::cout << "\n==============================\n";
     for (int k = 1; k <= maxIter; ++k) {
         double fx = func.f(x);
         double dfx = func.df(x);
 
         // (evita divisão por zero para não dar problema)
-        if (std::fabs(dfx) < 1e-14) {
+        if (std::fabs(dfx) < 1e-10) {
             R.root = x;
             R.fval = fx;
             R.error = std::fabs(x - prev);
@@ -28,11 +33,12 @@ NewtonResult newton_natural(
         // erro absoluto entre iterações |Xk + 1 - Xk|
         double err = std::fabs(xnext - x);
         
-        // std::cout << "root = " << x << "||"
-        //       << "f(root) = " << fx << "||"
-        //       << "error = " << err << "||"
-        //       << "iterations = " << k << "||"
-        //       << "\n";
+        std::cout << left;
+        std::cout << "root = " << setw(20) << x
+              << "f(root) = " << setw(20) << fx
+              << "error = " << setw(20) << err
+              << "iteration = " << k
+              << "\n";
 
         prev = x;
         x = xnext;

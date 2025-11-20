@@ -1,6 +1,8 @@
 #include <cmath>
 #include <iostream>
+#include <iomanip>
 #include "newton_methods.h"
+using namespace std;
 
 // Derivada por aproximação numérica
 inline double numeric_derivative(const Function& func, double x, double h) {
@@ -21,11 +23,15 @@ NewtonResult newton_numeric(
     double x = d0, prev = x;
     R.converged = false;
 
+    
+    std::cout << "\n\n==============================\n";
+    std::cout << " NEWTON METHOD w/ NUMERIC DERIVATIVE";
+    std::cout << "\n==============================\n";
     for (int k = 1; k <= maxIter; ++k) {
         double fx = func.f(x);
         double dfx = numeric_derivative(func, x, h);
 
-        if (std::fabs(dfx) < 1e-14) {
+        if (std::fabs(dfx) < 1e-10) {
             R.root = x;
             R.fval = fx;
             R.error = std::fabs(x - prev);
@@ -35,12 +41,12 @@ NewtonResult newton_numeric(
 
         double xnext = x - fx / dfx;
         double err = std::fabs(xnext - x);
-
-        // std::cout << "root = " << x << '||'
-        //       << "f(root) = " << func.f(x) << '||'
-        //       << "error = " << err << '||'
-        //       << "iterations = " << k << '||'
-        //       << "\n";
+        std::cout << left;
+        std::cout << "root = " << setw(20) << x
+              << "f(root) = " << setw(20) << func.f(x)
+              << "error = " << setw(20) << err
+              << "iteration = " << k
+              << "\n";
 
         prev = x;
         x = xnext;

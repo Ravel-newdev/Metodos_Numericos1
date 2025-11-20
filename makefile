@@ -11,7 +11,7 @@ TARGET   := trabalho1
 # Lista de fontes (.cpp)
 SRCS := $(shell find $(SRC_DIR) -type f -name "*.cpp") main.cpp
 
-# Substitui o prefixo src/ por obj/src/ e adiciona .o
+# Geração dos .o correspondentes
 OBJS := $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
 # Regra principal
@@ -23,16 +23,21 @@ $(BIN_DIR)/$(TARGET).exe: $(OBJS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 	@echo Compilação concluída com sucesso.
 
-# Regra genérica para compilar cada .cpp → .o
+# Compilar .cpp → .o
 $(OBJ_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	@echo [CC] Compilando $< ...
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Garante que diretórios existam
+# Criar diretórios
 directories:
 	@mkdir -p $(OBJ_DIR) $(BIN_DIR)
 
+# Executar
+run: all
+	@./$(BIN_DIR)/$(TARGET).exe
+
 # Limpeza
 clean:
-	@echo Removendo arq
+	@echo Removendo arquivos de compilação...
+	@rm -rf $(OBJ_DIR) $(BIN_DIR)

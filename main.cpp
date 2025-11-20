@@ -13,8 +13,11 @@ int main() {
     NewtonResult r_fl = newton_fl(func, d0, lambda, eps, maxIter);
     NewtonResult r_num = newton_numeric(func, d0, eps, h, maxIter);
 
-    cout << "\n==== Resultado Final ====\n";
+    std::cout << "\n\n==============================\n";
+    std::cout << " FINAL RESULT";
+    std::cout << "\n==============================\n";
     
+    cout << right;
     cout << setw(35) 
             << "root" << setw(25) 
             << "f(root)" << setw(25) 
