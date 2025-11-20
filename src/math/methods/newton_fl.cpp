@@ -2,34 +2,55 @@
 #include <iostream>
 #include "newton_methods.h"
 
+// Cores ANSI
+#define COLOR_RESET   "\033[0m"
+#define COLOR_RED     "\033[31m"
+#define COLOR_GREEN   "\033[32m"
+#define COLOR_CYAN    "\033[36m"
+
 NewtonResult newton_fl(
     const Function& func, double d0, double lambda, double eps, int maxIter
 ) {
     NewtonResult R{};
     double d = d0;
     double deriv = func.df(d);
-    double last_deriv = deriv; // último valor útil da derivada
+    double last_deriv = deriv;
 
     for (int iter = 1; iter <= maxIter; ++iter) {
+
         double fx = func.f(d);
         deriv = func.df(d);
 
-        // Verifica se a derivada atual é confiável
         double FL;
+        bool usingFL = false;
+
         if (std::fabs(deriv) >= lambda) {
             FL = deriv;
-            last_deriv = deriv; // guarda última derivada válida
+            last_deriv = deriv;
         } else {
-            FL = last_deriv;    // usa a última derivada confiável
+            FL = last_deriv;
+            usingFL = true;
         }
 
-        // Atualiza a aproximação
         double d_next = d - fx / FL;
-        std::cout << "root = " <<  d_next << '\n'
-              << "f(root) = " <<  func.f(d_next) << '\n'
-              << "error = " <<  std::fabs(d_next - d) << '\n'
-              << "iterations = " <<  iter<< '\n'
-              << "\n";
+
+        // ======== Prints da iteração ========
+        std::cout << COLOR_CYAN 
+                  << "Iteração " << iter << ":" << COLOR_RESET << "\n";
+
+        if (usingFL) {
+            std::cout << COLOR_RED 
+                      << " -> FL ativado! |f'(x)| < lambda, usando última derivada válida\n"
+                      << COLOR_RESET;
+        } else {
+            std::cout << COLOR_GREEN 
+                      << " -> Derivada normal utilizada\n"
+                      << COLOR_RESET;
+        }
+
+        std::cout << "root = " << d_next << '\n'
+                  << "f(root) = " << func.f(d_next) << '\n'
+                  << "error = " << std::fabs(d_next - d) << "\n\n";
 
         // Critério de parada
         if (std::fabs(d_next - d) < eps || std::fabs(fx) < eps) {
@@ -44,7 +65,6 @@ NewtonResult newton_fl(
         d = d_next;
     }
 
-    // Se chegar aqui, não convergiu dentro do máximo de iterações
     R.root = d;
     R.fval = func.f(d);
     R.error = std::fabs(func.f(d));

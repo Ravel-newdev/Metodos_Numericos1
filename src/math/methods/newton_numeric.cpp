@@ -25,7 +25,7 @@ NewtonResult newton_numeric(
         double fx = func.f(x);
         double dfx = numeric_derivative(func, x, h);
 
-        if (std::fabs(dfx) < 1e-14) {
+        if (std::fabs(dfx) < 1e-10) {
             R.root = x;
             R.fval = fx;
             R.error = std::fabs(x - prev);

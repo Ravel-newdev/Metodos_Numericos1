@@ -16,7 +16,7 @@ NewtonResult newton_natural(
         double dfx = func.df(x);
 
         // (evita divisão por zero para não dar problema)
-        if (std::fabs(dfx) < 1e-14) {
+        if (std::fabs(dfx) < 1e-10) {
             R.root = x;
             R.fval = fx;
             R.error = std::fabs(x - prev);
