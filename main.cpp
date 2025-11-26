@@ -6,7 +6,7 @@ int main() {
     auto a3 = 1.0;
     auto a2 = 0.01;   // MUITO pequeno -> raiz perto de 0
     auto d0 = 0.1;    // perto da região onde a derivada é quase zero
-    auto lambda = 0.02;
+    auto lambda = 0.05;
     auto h = 1e-4;
     auto eps = 1e-4;
     int maxIter = 100;
